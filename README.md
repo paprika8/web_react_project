@@ -14,3 +14,16 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+# ИЗМЕНЕНИЯ!
+
+Не надо больше танцев с бубнами для useState во избежании устаревших данных и постоянных обновлениях.
+Созданы Редьюсеры addTask, toggleTaskStatus, clearCompletedTasks, в принципе по аналогии с моим database (bd_update -> toggleTaskStatus). Но не нужен bd_save для сохранения состояния.
+
+Селекторы: 
+
+selectAllTasks для получения списка всех задач
+
+selectActiveTasks и selectCompletedTasks для получения только активных или заверщённых (но зачем, тут нет фильтра по активным и нет)
+
+selectTasksByName для поиска по названию

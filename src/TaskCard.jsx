@@ -1,43 +1,33 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 
 import RoundedBox from './RoundedBox';
 import FlexRow from './FlexRow';
 import Button from './Button';
-import { bd_save, bd_update } from './database';
+import { toggleTaskStatus } from '../tasksSlice.js';
 
-const TaskCard = ({task, className}) => {
+const TaskCard = ({ task, className }) => {
+  const dispatch = useDispatch();
 
-	const id = task.id;
+  const color = task.state ? '#2cce17' : '#ce1717';
 
-	const [state, setState] = React.useState(task.state);
+  const box = {
+    width: '50px',
+    height: '50px',
+  };
 
-	var color = state? '#2cce17' : '#ce1717';
-
-	const box = {
-		width:'50px',
-		height:'50px',
-	}
-
-	useEffect(()=>{
-		setState(task.state);
-		color = state? '#2cce17' : '#ce1717';
-	});
-
-	const reState = () => {
-		setState(!state);
-		task.state = !state;
-		bd_update(id, !state);
-		bd_save();
-	};
+  const reState = () => {
+    dispatch(toggleTaskStatus(task.id));
+  };
 
   return (
     <RoundedBox className={className}>
-			<FlexRow expandIndex={1} gap="8px">
-				<div>{task.date}</div>
-				<div>{task.name}</div>
-				<Button backgroundColor={color} onClick={reState} style={box}/> 
-			</FlexRow>
-		</RoundedBox>
+      <FlexRow expandIndex={1} gap="8px">
+        <div>{task.date}</div>
+        <div>{task.name}</div>
+        <Button backgroundColor={color} onClick={reState} style={box}/>
+      </FlexRow>
+    </RoundedBox>
   );
 };
 
